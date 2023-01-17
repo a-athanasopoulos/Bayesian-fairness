@@ -1,6 +1,6 @@
 from src.algorithm.bayes_fair_optimization import BayesianFairOptimization
 from src.algorithm.marginal_fair_optimization import MarginalFairOptimization
-from src.experiments.beysian_fairness.utilts import plot_results
+from src.experiments.bayesian_fairness.utilts import plot_results
 from src.models.dirichlet_model import DirichletModel
 from src.utils.data_utils import get_discrete_compas_dataset
 from src.utils.policy import get_random_policy
