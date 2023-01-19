@@ -1,5 +1,6 @@
 from src.experiments.bayesian_fairness.plot_utils import plot_results
-from src.experiments.bayesian_fairness.utilts import run_marginal_algorithm, run_bayesian_algorithm
+from src.experiments.bayesian_fairness.utilts import run_bayesian_algorithm, run_marginal_algorithm, \
+    run_bootstrapping_algorithm
 from src.models.dirichlet_model import DirichletModel
 from src.utils.data_utils import get_discrete_compas_dataset
 from src.utils.plot_results import comparison_subplots
@@ -47,6 +48,7 @@ def run_compass_experiment(data_path, save_path):
         "lr": 1.0,
         "update_policy_period": 100,
         "n_model": 16,
+        "bootstrap_models": 64,
         "l": None
     }
     l_list = [0.0, 0.5, 1.0]  # lambda
@@ -56,6 +58,18 @@ def run_compass_experiment(data_path, save_path):
         print(f"run experiment for l : {l}")
         parameters["l"] = l
         tmp_save_path = save_path + f"/l_{l}"
+        print(f"run bootstrapping_fair_algorithm")
+        bootstrapping_fair_algorithm = run_bootstrapping_algorithm(train_data=train_data,
+                                                                   initial_policy=initial_policy,
+                                                                   true_model=true_model,
+                                                                   num_X=num_X,
+                                                                   num_Y=num_Y,
+                                                                   num_Z=num_Z,
+                                                                   num_A=num_A,
+                                                                   prior=dirichlet_prior,
+                                                                   alg_parameters=parameters,
+                                                                   save_path=tmp_save_path)
+
         print(f"run marginal_fair_algorithm")
         marginal_fair_algorithm = run_marginal_algorithm(train_data=train_data,
                                                          initial_policy=initial_policy,
@@ -80,10 +94,12 @@ def run_compass_experiment(data_path, save_path):
                                                          save_path=tmp_save_path)
 
         results_list = [marginal_fair_algorithm.results,
-                        bayesian_fair_algorithm.results]
+                        bayesian_fair_algorithm.results,
+                        bootstrapping_fair_algorithm.results]
 
         labels = ["marginal",
-                  "bayes"]
+                  "bayes",
+                  "bootstrap"]
 
         plot_results(results=results_list,
                      labels=labels,
@@ -99,14 +115,13 @@ def run_compass_experiment(data_path, save_path):
 
 if __name__ == "__main__":
     # ******************PATH Configuration****************
-    exp_name = "exp_compas"
-    exp_number = "exp_3"  # add experiment sub-name
+    exp_name = "exp_compas_boostrap"
+    exp_number = "exp_1_64"  # add experiment sub-name
     base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/"  # add your base path
     data_path = base_path + "/my_code/Bayesian-fairness/data"
     save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/{exp_name}/{exp_number}"
 
     # create exp directory
-    print(f"experiment : {exp_name} number: {exp_number}")
     create_directory(save_path)
     # ******************Run experiment****************
     run_compass_experiment(data_path=data_path, save_path=save_path)

@@ -40,43 +40,6 @@ class Algorithm(BaseAlgorithm):
         results["total"] = (1 - l) * results["utility"] - l * results["fairness"]
         return results
 
-    def fit(self, train_data, belief, update_policy_period, l, lr, n_iter, n_model=None, **kwargs):
-        horizon = train_data.shape[0]
-        steps = horizon // update_policy_period
-
-        self.run_parameters = {
-            "update_policy_period": update_policy_period,
-            "l": l,
-            "lr": lr,
-            "n_iter": n_iter,
-            "n_model": n_model
-        }
-
-        self.results = []
-        for step in range(steps):
-            # update policy step
-            self.policy = self.update_policy(policy=self.policy,
-                                             dirichlet_belief=belief,
-                                             utility=self.utility,
-                                             l=l,
-                                             lr=lr,
-                                             n_iter=n_iter,
-                                             n_model=n_model)  # SDG to update policy
-
-            # evaluation step
-            step_results = self.evaluate(policy=self.policy,
-                                         l=l)
-            self.results += [step_results]
-
-            # update belief step
-            data_start_index = step * update_policy_period
-            data_stop_index = min(data_start_index + update_policy_period, horizon)
-            belief.update_posterior_belief(train_data.iloc[data_start_index: data_stop_index])
-
-            # print progress
-            print(f"--- Step : {data_start_index + 1} \n  ------- {step_results}")
-        self.results = pd.DataFrame(self.results)
-
     def save_results(self, save_path):
         np.savetxt(save_path + "/policy.csv", self.policy, delimiter=",")
         self.results.to_csv(save_path + "/results.csv")

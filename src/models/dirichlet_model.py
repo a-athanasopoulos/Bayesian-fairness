@@ -2,7 +2,7 @@ import copy
 import numpy as np
 
 
-class Model:
+class MarginalModel:
     """
     Probabilistic model
     """
@@ -77,7 +77,7 @@ class DirichletModel:
         Px = self.N_x / np.sum(self.N_x)
         Py_x = self.N_y_x / np.sum(self.N_y_x, axis=0)
         Pz_yx = self.N_z_yx / np.sum(self.N_z_yx, axis=0)
-        return Model(Px=Px, Py_x=Py_x, Pz_yx=Pz_yx)
+        return MarginalModel(Px=Px, Py_x=Py_x, Pz_yx=Pz_yx)
 
     def sample_model(self):
         """
@@ -97,4 +97,4 @@ class DirichletModel:
             for y in range(self.Y):
                 Pz_yx[:, y, x] = np.random.dirichlet(self.N_z_yx[:, y, x])
 
-        return Model(Px=Px, Py_x=Py_x, Pz_yx=Pz_yx)
+        return MarginalModel(Px=Px, Py_x=Py_x, Pz_yx=Pz_yx)
