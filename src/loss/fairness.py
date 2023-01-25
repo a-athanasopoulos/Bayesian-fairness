@@ -1,6 +1,8 @@
 import numpy as np
+import tensorflow as tf
 
-
+tf.keras.losses.BinaryCrossentropy
+tf.keras.Model
 def get_fairness(policy, model_delta):
     (X, Y, Z) = model_delta.shape
     fairness = 0
