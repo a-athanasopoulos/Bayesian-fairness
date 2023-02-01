@@ -1,10 +1,10 @@
 import pandas as pd
-from src.algorithm.base_optimizer import Algorithm
-from src.loss.fairness import get_fairness_gradient
-from src.loss.utility import get_utility_gradient
-from src.utils.gradient import project_gradient
-from src.utils.model import get_delta
-from src.utils.policy import normalize_policy
+from src.discreate.algorithm.base_optimizer import Algorithm
+from src.discreate.loss.fairness import get_fairness_gradient
+from src.discreate.loss.utility import get_utility_gradient
+from src.discreate.utils.gradient import project_gradient
+from src.discreate.utils.model import get_delta
+from src.discreate.utils.policy import normalize_policy
 
 
 class MarginalFairOptimization(Algorithm):
@@ -15,7 +15,7 @@ class MarginalFairOptimization(Algorithm):
         Marginal Policy Dirichlet
         """
         model = dirichlet_belief.get_marginal_model()
-        model_delta = get_delta(model.Px_y, model.Px_yz)
+        model_delta = get_delta(model.Px_y, model.Px_yz,  model.Pz_y)
 
         for i in range(n_iter):
             fairness_gradient = get_fairness_gradient(policy, model_delta)

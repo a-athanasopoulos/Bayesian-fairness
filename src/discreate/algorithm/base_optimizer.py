@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 
-from src.loss.fairness import get_fairness
-from src.loss.utility import get_utility
-from src.utils.model import get_delta
+from src.discreate.loss.fairness import get_fairness
+from src.discreate.loss.utility import get_utility
+from src.discreate.utils.model import get_delta
 
 
 class BaseAlgorithm(object):
@@ -24,7 +24,8 @@ class Algorithm(BaseAlgorithm):
     def __init__(self, true_model, policy, utility):
         self.true_model = true_model
         self.true_model_delta = get_delta(Px_y=self.true_model.Px_y,
-                                          Px_yz=self.true_model.Px_yz)
+                                          Px_yz=self.true_model.Px_yz,
+                                          Pz_y=self.true_model.Pz_y)
         self.policy = policy
         self.utility = utility
         self.results = None

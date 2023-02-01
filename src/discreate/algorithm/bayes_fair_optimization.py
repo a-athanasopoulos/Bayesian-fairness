@@ -1,31 +1,26 @@
 import pandas as pd
-from src.algorithm.base_optimizer import Algorithm
-from src.loss.fairness import get_fairness_gradient
-from src.loss.utility import get_utility_gradient
-from src.models.boostrap_model import BoostrapModel
-from src.utils.gradient import project_gradient
-from src.utils.model import get_delta
-from src.utils.policy import normalize_policy
+
+from src.discreate.algorithm.base_optimizer import Algorithm
+from src.discreate.loss.fairness import get_fairness_gradient
+from src.discreate.loss.utility import get_utility_gradient
+from src.discreate.utils.gradient import project_gradient
+from src.discreate.utils.model import get_delta
+from src.discreate.utils.policy import normalize_policy
 
 
-class BootstrapFairOptimization(Algorithm):
-    """
-    Bootstrap Fair Optimization
-    """
+class BayesianFairOptimization(Algorithm):
 
     @staticmethod
-    def update_policy(policy, dim, training_data, utility, l, lr, n_iter, n_model, **kwargs):
+    def update_policy(policy, dirichlet_belief, utility, l, lr, n_iter, n_model, **kwargs):
         """
-        Bootstrap update policy
+        Marginal Policy Dirichlet
         """
-
-        # sample models
         models = []
         model_delta = []
         for m in range(n_model):
-            model = BoostrapModel(n_x=dim[0], n_y=dim[1], n_z=dim[2]).sample_model(training_data)
+            model = dirichlet_belief.sample_model()
             models += [model]
-            model_delta += [get_delta(model.Px_y, model.Px_yz)]
+            model_delta += [get_delta(model.Px_y, model.Px_yz,  model.Pz_y)]
 
         for i in range(n_iter):
             tmp_index = i % n_model
@@ -40,7 +35,7 @@ class BootstrapFairOptimization(Algorithm):
 
         return policy
 
-    def fit(self, train_data, update_policy_period, dim_xyza, l, lr, n_iter, bootstrap_models=None, **kwargs):
+    def fit(self, train_data, belief, update_policy_period, l, lr, n_iter, n_model=None, **kwargs):
         horizon = train_data.shape[0]
         steps = horizon // update_policy_period
 
@@ -49,21 +44,19 @@ class BootstrapFairOptimization(Algorithm):
             "l": l,
             "lr": lr,
             "n_iter": n_iter,
-            "n_model": bootstrap_models
+            "n_model": n_model
         }
 
         self.results = []
         for step in range(steps):
-            data_until = (step + 1) * update_policy_period
             # update policy step
             self.policy = self.update_policy(policy=self.policy,
-                                             dim=dim_xyza,
-                                             training_data=train_data.iloc[:(step) * update_policy_period],
+                                             dirichlet_belief=belief,
                                              utility=self.utility,
                                              l=l,
                                              lr=lr,
                                              n_iter=n_iter,
-                                             n_model=bootstrap_models)  # SDG to update policy
+                                             n_model=n_model)  # SDG to update policy
 
             # evaluation step
             step_results = self.evaluate(policy=self.policy,
@@ -72,6 +65,8 @@ class BootstrapFairOptimization(Algorithm):
 
             # update belief step
             data_start_index = step * update_policy_period
+            data_stop_index = min(data_start_index + update_policy_period, horizon)
+            belief.update_posterior_belief(train_data.iloc[data_start_index: data_stop_index])
 
             # print progress
             print(f"--- Step : {data_start_index + 1} \n  ------- {step_results}")

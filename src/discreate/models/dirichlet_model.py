@@ -19,6 +19,7 @@ class MarginalModel:
         self.Pxy = np.zeros(shape=(self.X, self.Y))
         self.Pyz = np.zeros(shape=(self.Y, self.Z))
         self.Pxyz = np.zeros(shape=(self.X, self.Y, self.Z))
+        self.Pz_y = np.zeros(shape=(self.Z, self.Y))
 
         self.calculate_marginal_propabilities()
 
@@ -43,6 +44,10 @@ class MarginalModel:
             self.Py[y] = np.sum(self.Pxyz[:, y, :])
             for x in range(self.X):
                 self.Px_y[x, y] = self.Pxy[x, y] / self.Py[y]
+
+        # calculate Pz_y
+        for y in range(self.Y):
+            self.Pz_y[:, y] = self.Pyz[y, :] / self.Py[y]
 
 
 class DirichletModel:

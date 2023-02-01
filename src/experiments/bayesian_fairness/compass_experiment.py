@@ -1,9 +1,9 @@
 from src.experiments.bayesian_fairness.plot_utils import plot_results
 from src.experiments.bayesian_fairness.utilts import run_marginal_algorithm, run_bayesian_algorithm
-from src.models.dirichlet_model import DirichletModel
-from src.utils.data_utils import get_discrete_compas_dataset
-from src.utils.plot_results import comparison_subplots
-from src.utils.policy import get_random_policy
+from src.discreate.models.dirichlet_model import DirichletModel
+from src.discreate.utils.data_utils import get_discrete_compas_dataset
+from src.discreate.utils.plot_results import comparison_subplots
+from src.discreate.utils.policy import get_random_policy
 from src.utils.utils import create_directory
 
 
@@ -100,10 +100,10 @@ def run_compass_experiment(data_path, save_path):
 if __name__ == "__main__":
     # ******************PATH Configuration****************
     exp_name = "exp_compas"
-    exp_number = "exp_3"  # add experiment sub-name
+    exp_number = "exp_3_check"  # add experiment sub-name
     base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/"  # add your base path
     data_path = base_path + "/my_code/Bayesian-fairness/data"
-    save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/{exp_name}/{exp_number}"
+    save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/discrete/{exp_name}/{exp_number}"
 
     # create exp directory
     print(f"experiment : {exp_name} number: {exp_number}")

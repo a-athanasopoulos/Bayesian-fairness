@@ -7,7 +7,7 @@ def plot_results(results, labels, save_path, show=0):
 
     comparison_plots(results=results,
                      labels=labels,
-                     atribure="utility",
+                     atribure="eval_utility",
                      title="Utility U",
                      save_path=save_path,
                      show=show)
@@ -16,7 +16,7 @@ def plot_results(results, labels, save_path, show=0):
 
     comparison_plots(results=results,
                      labels=labels,
-                     atribure="fairness",
+                     atribure="eval_fairness_loss",
                      title="Fairness F",
                      save_path=save_path,
                      show=show)
@@ -25,7 +25,7 @@ def plot_results(results, labels, save_path, show=0):
 
     comparison_plots(results=results,
                      labels=labels,
-                     atribure="total",
+                     atribure="eval_loss",
                      title="Total T",
                      save_path=save_path,
                      show=show)

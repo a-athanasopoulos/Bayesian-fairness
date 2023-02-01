@@ -1,10 +1,10 @@
 from src.experiments.bayesian_fairness.plot_utils import plot_results
 from src.experiments.bayesian_fairness.utilts import run_bayesian_algorithm, run_marginal_algorithm, \
     run_bootstrapping_algorithm
-from src.models.dirichlet_model import DirichletModel
-from src.utils.data_utils import get_discrete_compas_dataset
-from src.utils.plot_results import comparison_subplots
-from src.utils.policy import get_random_policy
+from src.discreate.models.dirichlet_model import DirichletModel
+from src.discreate.utils.data_utils import get_discrete_compas_dataset
+from src.discreate.utils.plot_results import comparison_subplots
+from src.discreate.utils.policy import get_random_policy
 from src.utils.utils import create_directory
 
 
@@ -48,10 +48,10 @@ def run_compass_experiment(data_path, save_path):
         "lr": 1.0,
         "update_policy_period": 100,
         "n_model": 16,
-        "bootstrap_models": 64,
+        "bootstrap_models": 16,
         "l": None
     }
-    l_list = [0.0, 0.5, 1.0]  # lambda
+    l_list = [0.96, 0.97, 0.98, 0.985, 0.99]  # lambda
     initial_policy = get_random_policy(size=(num_A, num_X))
     # iterate over different l parameters
     for l in l_list:
@@ -116,7 +116,7 @@ def run_compass_experiment(data_path, save_path):
 if __name__ == "__main__":
     # ******************PATH Configuration****************
     exp_name = "exp_compas_boostrap"
-    exp_number = "exp_1_64"  # add experiment sub-name
+    exp_number = "exp_lr_new_loss"  # add experiment sub-name
     base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/"  # add your base path
     data_path = base_path + "/my_code/Bayesian-fairness/data"
     save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/{exp_name}/{exp_number}"

@@ -1,9 +1,8 @@
-from src.algorithm.bayes_fair_optimization import BayesianFairOptimization
-from src.algorithm.bootstrap_fair_optimization import BootstrapFairOptimization
-from src.algorithm.marginal_fair_optimization import MarginalFairOptimization
-from src.models.dirichlet_model import DirichletModel
-from src.utils.plot_results import comparison_plots
-from src.utils.utility import get_eye_utility
+from src.discreate.algorithm.bayes_fair_optimization import BayesianFairOptimization
+from src.discreate.algorithm.bootstrap_fair_optimization import BootstrapFairOptimization
+from src.discreate.algorithm.marginal_fair_optimization import MarginalFairOptimization
+from src.discreate.models.dirichlet_model import DirichletModel
+from src.discreate.utils.utility import get_eye_utility
 from src.utils.utils import create_directory
 
 
