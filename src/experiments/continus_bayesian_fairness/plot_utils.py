@@ -1,4 +1,4 @@
-from src.discreate.utils.plot_results import comparison_plots
+from src.discrete.utils.plot_results import comparison_plots
 import matplotlib.pyplot as plt
 
 

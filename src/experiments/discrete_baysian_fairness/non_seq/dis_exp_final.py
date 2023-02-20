@@ -1,14 +1,15 @@
-from src.discreate.tf.models.logistic_regression import LogisticRegressionTF
-from src.discreate.models.dirichlet_model import DirichletModel
-from src.discreate.utils.data_utils import get_discrete_compas_dataset
-from src.discreate.utils.plot_results import comparison_subplots
-from src.experiments.discreate_baysian_fairness.non_seq.loop import run_bootstrap_algorithm
-from src.experiments.discreate_baysian_fairness.non_seq.loop import run_marginal_algorithm
-from src.experiments.discreate_baysian_fairness.non_seq.loop import run_bayesian_algorithm
+from src.discrete.tf.models.logistic_regression import LogisticRegressionTF
+from src.discrete.models.dirichlet_model import DirichletModel
+from src.discrete.utils.data_utils import get_discrete_compas_dataset
+from src.discrete.utils.plot_results import comparison_subplots
+from src.experiments.discrete_baysian_fairness.non_seq.loop import run_bootstrap_algorithm
+from src.experiments.discrete_baysian_fairness.non_seq.loop import run_marginal_algorithm
+from src.experiments.discrete_baysian_fairness.non_seq.loop import run_bayesian_algorithm
 
-from src.experiments.discreate_baysian_fairness.plot_utils import plot_results
+from src.experiments.discrete_baysian_fairness.plot_utils import plot_results
 from src.utils.utils import create_directory
 
+import pandas as pd
 
 def run_discrete_compass_experiment(data_path,
                                     save_path,

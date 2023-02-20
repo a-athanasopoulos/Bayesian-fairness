@@ -10,12 +10,12 @@ from src.experiments.continus_bayesian_fairness.non_seq.bootstraping_exp_final i
     run_continuous_compass_experiment as non_sequential_exp
 from src.experiments.continus_bayesian_fairness.seq.bootstraping_exp_seq import \
     run_continuous_compass_experiment as sequential_exp
-from src.experiments.discreate_baysian_fairness.non_seq.dis_exp_final import \
+from src.experiments.discrete_baysian_fairness.non_seq.dis_exp_final import \
     run_discrete_compass_experiment as dis_non_sequential_exp
 from src.utils.utils import create_directory
 
 # add your base path
-base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/my_code/Bayesian-fairness"
+base_path = "/home/andreas/projects/Bayesian-fairness"
 data_path = base_path + "/data"
 
 n_times = 50
@@ -61,7 +61,7 @@ sequential_exp(data_path=data_path,
                n_times=n_times)
 
 # *********************************************************
-# B. Discrete experiment
+# B. discrete experiment
 shuffle = True
 lr = 1.0
 n_iter = 1500

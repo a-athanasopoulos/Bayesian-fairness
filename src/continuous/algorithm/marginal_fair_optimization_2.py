@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 
-from src.continuous.models.models import get_models_from_data
 from src.continuous.tf.loss.fairness import get_fairness_loss
 from src.continuous.tf.loss.utility import get_utility_loss, get_utility_metric
 from src.continuous.tf.models.logistic_regression import LogisticRegressionTF

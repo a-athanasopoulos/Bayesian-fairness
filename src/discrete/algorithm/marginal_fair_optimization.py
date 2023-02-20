@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 
-from src.discreate.tf.models.logistic_regression import LogisticRegressionTF
-from src.discreate.models.boostrap_model import BoostrapModel
-from src.discreate.models.dirichlet_model import DirichletModel
-from src.discreate.tf.loss.fairness import get_fairness
-from src.discreate.tf.loss.utility import get_utility_loss
-from src.discreate.utils.model import get_delta
+from src.discrete.tf.models.logistic_regression import LogisticRegressionTF
+from src.discrete.models.boostrap_model import BoostrapModel
+from src.discrete.models.dirichlet_model import DirichletModel
+from src.discrete.tf.loss.fairness import get_fairness
+from src.discrete.tf.loss.utility import get_utility_loss
+from src.discrete.utils.model import get_delta
 
 
 class BaseAlgorithm(object):

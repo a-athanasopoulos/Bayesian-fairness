@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.discreate.models.dirichlet_model import MarginalModel
+from src.discrete.models.dirichlet_model import MarginalModel
 
 
 class BoostrapModel(object):

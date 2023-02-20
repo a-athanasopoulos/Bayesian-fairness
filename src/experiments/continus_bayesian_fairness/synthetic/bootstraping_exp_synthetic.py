@@ -1,13 +1,12 @@
 import numpy as np
+import pandas as pd
 
 from src.continuous.models.models import get_models_from_data
 from src.continuous.tf.models.logistic_regression import LogisticRegressionTF
-from src.continuous.utils.adult_dataset import get_adult_datasets
-from src.continuous.utils.data_utils import get_continuous_compas_dataset
 from src.continuous.utils.plot_results import comparison_subplots
 from src.continuous.utils.synthetic_dataset import get_synthetic_data
 from src.experiments.continus_bayesian_fairness.plot_utils import plot_results
-from src.experiments.continus_bayesian_fairness.loop_1 import run_marginal_algorithm, run_bootstrap_algorithm
+from src.experiments.continus_bayesian_fairness.non_seq.loop import run_marginal_algorithm, run_bootstrap_algorithm
 from src.utils.utils import create_directory
 
 
