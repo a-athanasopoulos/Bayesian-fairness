@@ -15,7 +15,7 @@ from src.experiments.discreate_baysian_fairness.non_seq.dis_exp_final import \
 from src.utils.utils import create_directory
 
 # add your base path
-base_path = "/home/andreas/projects/Bayesian-fairness"
+base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/my_code/Bayesian-fairness"
 data_path = base_path + "/data"
 
 n_times = 50
