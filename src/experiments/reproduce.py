@@ -18,7 +18,7 @@ from src.utils.utils import create_directory
 base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/my_code/Bayesian-fairness"
 data_path = base_path + "/data"
 
-n_times = 50
+n_times = 10
 
 # *********************************************************
 # A. Continuous experiment
@@ -35,7 +35,7 @@ opt_parameters = {
 # 1. run non sequential continuous experiment
 exp_name = "non-sequential"
 exp_number = f"adam_lr_{lr}_iter_{n_iter}_s_{shuffle}"
-save_path = base_path + f"/results/bayesian_fairness/continuous/{exp_name}/{exp_number}"
+save_path = base_path + f"/results/reproduce/continuous/{exp_name}/{exp_number}"
 create_directory(save_path)
 l_list = [0.0, 0.5, 0.8, 1.0]
 non_sequential_exp(data_path=data_path,
@@ -49,7 +49,7 @@ non_sequential_exp(data_path=data_path,
 # 2. run  sequential continuous experiment
 exp_name = "sequential"
 exp_number = f"adam_lr_{lr}_iter_{n_iter}_s_{shuffle}"
-save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/continuous/{exp_name}/{exp_number}"
+save_path = base_path + f"/my_code/reproduce/results/bayesian_fairness/continuous/{exp_name}/{exp_number}"
 create_directory(save_path)
 l_list = [0.0, 0.5, 0.8, 1.0]
 sequential_exp(data_path=data_path,
