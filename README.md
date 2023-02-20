@@ -1,4 +1,4 @@
-# Bayesian-fairness
+# Approximate Inference for the Bayesian Fairness Framework
 
 The current repository contains the code to implement the "Approximate Inference for the Bayesian Fairness
 Framework" paper in python.
