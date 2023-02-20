@@ -53,7 +53,9 @@ def run_compass_experiment(data_path, save_path):
         "bootstrap_models": 16,
         "l": None
     }
-    l_list = [0.0, 0.1, 0.30, 0.40, 0.50, 0.80, 0.90, 1.00]  # lambda
+    # l_list = [0.00, 0.10, 0.30, 0.40, 0.50, 0.70, 0.80, 0.90, 1.00, 1.10]
+    # l_list = [20.00, 30.00, 40.00, 50.00]
+    l_list = [200.00, 250.0, 400.00, 500.0, 1000.0]  # lambda
     # iterate over different l parameters
     for l in l_list:
         parameters["l"] = l
@@ -131,10 +133,11 @@ def run_compass_experiment(data_path, save_path):
         save_name = tmp_l_save_path + "/bayesian_results_all.csv"
         pd.concat(bayesian_results, keys=[f"run_{i}" for i in range(n_times)], axis=1).to_csv(save_name)
 
+
 if __name__ == "__main__":
     # ******************PATH Configuration****************
     exp_name = "exp_compas_boostrap"
-    exp_number = "final_test"  # add experiment sub-name
+    exp_number = "final"  # add experiment sub-name
     base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/"  # add your base path
     data_path = base_path + "/my_code/Bayesian-fairness/data"
     save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/discrete/{exp_name}/{exp_number}"

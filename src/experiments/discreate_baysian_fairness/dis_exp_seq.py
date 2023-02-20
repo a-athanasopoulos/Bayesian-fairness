@@ -10,14 +10,10 @@ from src.experiments.continus_bayesian_fairness.plot_utils import plot_results
 from src.utils.utils import create_directory
 
 
-def run_continuous_compass_experiment(data_path,
-                                      save_path,
-                                      dataset_name,
-                                      n_times,
-                                      l_list,
-                                      opt_parameters,
-                                      shuffle=True):
+def run_continuous_compass_experiment(data_path, save_path, dataset_name):
     # ******************Load Data*************************
+    n_times = 10
+
     # load dataset
     if dataset_name == "compas":
         train_data, test_data, X_atr, Y_atr, Z_atr, n_y, n_z = get_continuous_compas_dataset(data_path=data_path)
@@ -30,12 +26,19 @@ def run_continuous_compass_experiment(data_path,
     # ******************Run Experiment*************************
 
     # set parameters
+    opt_parameters = {
+        "n_iter": 400,
+        "lr": 0.5,
+        "bootstrap_models": 16,
+        "lambda_parameter": None
+    }
 
     update_policy_period = 500
     # l_list = [0.0, 0.4, 0.5]
     # l_list = [0.6, 0.7, 0.8, 1.0]
     # l_list = [0.9, 1.1, 1.5, 1.4]
     # l_list = [1.1, 1.2, 1.3, 1.4, 1.5]  # lambda
+    l_list = [10.0]
     dirichlet_prior = 0.5
     initial_policy_weights_list = [LogisticRegressionTF(input_dim=len(X_atr)).get_weights() for i in range(n_times)]
     # iterate over different l parameters
@@ -50,7 +53,7 @@ def run_continuous_compass_experiment(data_path,
                             test_model[1],
                             test_model[2],
                             test_model[3])
-    create_directory(save_path + "/plots")
+
     for tmp_l in l_list:
         print(f"run experiment for l : {tmp_l}")
         print(f"update_policy_period : {update_policy_period}")
@@ -61,8 +64,7 @@ def run_continuous_compass_experiment(data_path,
         marginal_results = []
         for i in range(n_times):
             tmp_save_path = tmp_l_save_path + f"/run_{i}"
-            if shuffle:
-                train_data = train_data.sample(frac=1, replace=False).reset_index(drop=True)
+
             print(f"run bootstrapping_fair_algorithm")
             bootstrap_cont_results = run_bootstrap_algorithm_seq(train_data=train_data,
                                                                  test_data_and_models=test_data_and_models,
@@ -126,8 +128,8 @@ def run_continuous_compass_experiment(data_path,
 
 if __name__ == "__main__":
     # ******************PATH Configuration****************
-    exp_name = "exp_compass_seq_tests"
-    exp_number = "test_2_lr_01_iter_1500_adam_100"  # add experiment sub-name
+    exp_name = "exp_compas_boostrap_sequential_continuous_final"
+    exp_number = "final"  # add experiment sub-name
     base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/"  # add your base path
     data_path = base_path + "/my_code/Bayesian-fairness/data"
     save_path = base_path + f"/my_code/Bayesian-fairness/results/bayesian_fairness/continuous/{exp_name}/{exp_number}"
@@ -135,17 +137,4 @@ if __name__ == "__main__":
     # create exp directory
     create_directory(save_path)
     # ******************Run experiment****************
-    opt_parameters = {
-        "n_iter": 1500,
-        "lr": 0.01,
-        "bootstrap_models": 16,
-        "lambda_parameter": None
-    }
-    l_list = [1.0]
-    run_continuous_compass_experiment(data_path=data_path,
-                                      save_path=save_path,
-                                      dataset_name="compas",
-                                      opt_parameters=opt_parameters,
-                                      n_times=100,
-                                      l_list=l_list,
-                                      shuffle=True)
+    run_continuous_compass_experiment(data_path=data_path, save_path=save_path, dataset_name="compas")

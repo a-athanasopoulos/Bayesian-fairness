@@ -38,7 +38,7 @@ class Algorithm(BaseAlgorithm):
         results = dict()
         results["fairness"] = np.round(get_fairness(policy, self.true_model_delta), 4)
         results["utility"] = get_utility(policy, self.true_model, self.utility)
-        results["total"] = (1 - l) * results["utility"] - l * results["fairness"]
+        results["total"] = results["utility"] - l * results["fairness"]
         return results
 
     def save_results(self, save_path):

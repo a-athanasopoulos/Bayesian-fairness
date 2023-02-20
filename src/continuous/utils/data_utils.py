@@ -24,7 +24,7 @@ def encode_data(data, unique_values):
     return encoded_value.astype(int)
 
 
-def get_continuous_compas_dataset(data_path, shuffle=0):
+def get_continuous_compas_dataset(data_path, shuffle=0, norm=True):
     Z_atr = ["sex", "race"]
     X_atr = ['age_cat', 'juv_fel_count', 'juv_misd_count', 'juv_other_count', 'priors_count', 'c_charge_degree']
     Y_atr = ['two_year_recid']
@@ -45,7 +45,9 @@ def get_continuous_compas_dataset(data_path, shuffle=0):
     data = data.astype("float32")
 
     from sklearn.preprocessing import StandardScaler
-    data[X_atr] = StandardScaler().fit_transform(data[X_atr])
+    if norm:
+        data[X_atr] = StandardScaler().fit_transform(data[X_atr])
+
     if shuffle:
         data = data.sample(frac=1.0, replace=False)
     train_data = data.iloc[0:6000]

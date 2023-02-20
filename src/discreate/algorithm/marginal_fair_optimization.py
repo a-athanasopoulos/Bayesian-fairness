@@ -20,7 +20,7 @@ class MarginalFairOptimization(Algorithm):
         for i in range(n_iter):
             fairness_gradient = get_fairness_gradient(policy, model_delta)
             utility_gradient = get_utility_gradient(model, utility)
-            gradient = (1 - l) * utility_gradient + l * fairness_gradient  # minus on the gradient calc.
+            gradient = utility_gradient + l * fairness_gradient  # minus on the gradient calc.
             gradient = project_gradient(gradient)
             policy = policy + lr * gradient  # maximize Utility & minimize fairness constrain.
             policy = normalize_policy(policy)
