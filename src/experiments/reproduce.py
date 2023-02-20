@@ -18,7 +18,7 @@ from src.utils.utils import create_directory
 base_path = "/Users/andreasathanasopoulos/Phd/projects/bayesian_fairness/my_code/Bayesian-fairness"
 data_path = base_path + "/data"
 
-n_times = 10
+n_times = 50
 
 # *********************************************************
 # A. Continuous experiment
