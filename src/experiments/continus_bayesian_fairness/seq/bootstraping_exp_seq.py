@@ -5,7 +5,7 @@ from src.continuous.tf.models.logistic_regression import LogisticRegressionTF
 from src.continuous.utils.adult_dataset import get_adult_datasets
 from src.continuous.utils.data_utils import get_continuous_compas_dataset
 from src.continuous.utils.plot_results import comparison_subplots
-from src.experiments.continus_bayesian_fairness.loop_seq import run_marginal_algorithm_seq, run_bootstrap_algorithm_seq
+from src.experiments.continus_bayesian_fairness.seq.loop_seq import run_marginal_algorithm_seq, run_bootstrap_algorithm_seq
 from src.experiments.continus_bayesian_fairness.plot_utils import plot_results
 from src.utils.utils import create_directory
 

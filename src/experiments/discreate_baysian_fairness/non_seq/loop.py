@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.discreate_new.algorithm.marginal_fair_optimization import DiscreteBootstrapFairOptimization, \
+from src.discreate.algorithm.marginal_fair_optimization import DiscreteBootstrapFairOptimization, \
     DiscreteMarginalFairOptimization, DiscreteBayesianFairOptimization
 from src.utils.utils import create_directory
 

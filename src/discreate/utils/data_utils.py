@@ -41,7 +41,15 @@ def create_compact_dataset(data, Z_atr, X_atr, Y_atr, unique_x, unique_y, unique
     return np.stack([encoded_x, encoded_z, encoded_y], axis=1)
 
 
-def get_discrete_compas_dataset(data_path, Z_atr, X_atr, Y_atr, clip_features, clip_value):
+def get_discrete_compas_dataset(data_path):
+    Z_atr = ["sex", "race"]
+    X_atr = ['age_cat', 'juv_fel_count', 'juv_misd_count', 'juv_other_count', 'priors_count', 'c_charge_degree']
+    Y_atr = ['two_year_recid']
+
+    # features to clip
+    clip_features = ["juv_fel_count", "juv_misd_count", "juv_other_count", "priors_count"]
+    clip_value = 2
+
     # load dataset
     data = load_compas_dataset(path=data_path, clip_features=clip_features, clip_value=clip_value)
 
@@ -58,4 +66,6 @@ def get_discrete_compas_dataset(data_path, Z_atr, X_atr, Y_atr, clip_features, c
     dataset = create_compact_dataset(data, Z_atr, X_atr, Y_atr, unique_x, unique_y, unique_z)
     dataset = pd.DataFrame(dataset, columns=["x", "z", "y"])
 
-    return dataset, (n_x, n_y, n_z)
+    train_data = dataset.iloc[0:6000]
+    test_data = dataset.iloc[6000:]
+    return train_data, test_data, X_atr, Y_atr, Z_atr, n_x, n_y, n_z
