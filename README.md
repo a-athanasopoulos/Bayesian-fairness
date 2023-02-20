@@ -33,16 +33,14 @@ The instruction are for linux based system with python 3.9
 
 To setup the python virtual environment run, navigate to the project directory and run the following command from a terminal
 
+> cd path_to_repo/Bayesian-fairness
 > python3 -m venv bayesian-fairness_env
 > source bayesian-fairness_env/bin/activate
 > pip3 install -r requirements.txt
 
 #### Run Experiments
+To reproduce the result run the following code
+> cd path_to_repo/Bayesian-fairness
+> source bayesian-fairness_env/bin/activate
+> python3.9 -m src.experiments.reproduce
 
-The experiment 
-
-#### 1. implementation of bayesian fairness
-* paper: https://ojs.aaai.org/index.php/AAAI/article/view/3824  
-* code_path :  src > experiments > bayesian_fairness  
-* results_path: results > bayesian_fairness
-* notebooks: src> notebooks > bayesian_fairness
